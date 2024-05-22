@@ -8,7 +8,7 @@ GetTasks : async (req,res) => {
     res.send(await getTasks())
 },
 getoneTask : async (req,res) => {
-    res.send(await getTask(req.params.id))
+    res.send(await getTask(+req.params.id))
 },
 
 addTask : async (req,res) => {
