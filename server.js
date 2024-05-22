@@ -4,7 +4,7 @@ import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import userRoute from './routes/user.js'
 import loginRoute from './routes/login.js'
-// import messageRoute from './routes/messages.js'
+import taskRoute from './routes/tasks.js'
 import {auth} from './middleware/authentication.js'
 // // import cookieParser from 'cookie-parser'
 
@@ -21,6 +21,7 @@ app.use(cookieParser());
 app.use('/users', userRoute);
 // app.use('/signup', signupRoute);
 app.use('/login',auth, loginRoute);
+app.use('/tasks', taskRoute);
 app.listen(PORT, () => {
   console.log(`Server running on port http://localhost:${PORT}`);
 });

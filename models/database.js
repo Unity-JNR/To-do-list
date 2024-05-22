@@ -39,41 +39,85 @@ const checkuser = async(email)=> {
     }
     //end of user table
 
-    // tasks
+// tasks
 
-    const addTasks = async (task_name,d_o_s,d_o_c,user_id) => {
-        const [task]  = await pool.query(`
-            INSERT INTO tasks (task_name,d_o_s,d_o_c,user_id) VALUES (?,?,?,?,?)
-        `, [task_name,d_o_s,d_o_c,user_id])
-        return task
+// Function to add a task
+const addTasks = async (task_name, d_o_s, d_o_c, user_id) => {
+    try {
+        const [task] = await pool.query(`
+            INSERT INTO tasks (task_name, d_o_s, d_o_c, user_id) VALUES (?, ?, ?, ?)
+        `, [task_name, d_o_s, d_o_c, user_id]);
+        return task;
+    } catch (error) {
+        // Handle error
+        console.error("Error adding task:", error);
+        throw error; // Rethrow the error for the caller to handle
     }
-    
-       const getTasks= async() => {
+};
+
+// Function to get all tasks
+const getTasks = async () => {
+    try {
         const [tasks] = await pool.query("SELECT * FROM tasks");
-        return tasks
-       }
-    
-       const getTask = async(idtasks) => {
-        const [task] = await pool.query("SELECT * FROM tasks WHERE idtasks =?", [idtasks]);
-        return task
-       }
-    
-       const updateTask = async(task_name,d_o_s,d_o_c,user_id,idtasks) => {
-        const [task]  = await pool.query(`
-            UPDATE tasks SET task_name =?, d_o_s =?, d_o_c =?, user_id =? WHERE idtasks =?
-        `, [task_name,d_o_s,d_o_c,user_id,idtasks])
-        return task
-       }
-    
-       const deleteTask = async(id) => {
-        const [task]  = await pool.query(`
-            DELETE FROM tasks WHERE idtasks =?
-        `, [id])
-        return task
-       }
+        return tasks;
+    } catch (error) {
+        // Handle error
+        console.error("Error getting tasks:", error);
+        throw error; // Rethrow the error for the caller to handle
+    }
+};
+
+// Function to get a single task by ID
+const getTask = async (idtasks) => {
+    try {
+        const [task] = await pool.query("SELECT * FROM tasks WHERE user_id = ?", [idtasks]);
+        return task;
+    } catch (error) {
+        // Handle error
+        console.error("Error getting task by ID:", error);
+        throw error; // Rethrow the error for the caller to handle
+    }
+};
+
+const getEditTask = async (idtasks) => {
+    try {
+        const [task] = await pool.query("SELECT * FROM tasks WHERE idtasks = ?", [idtasks]);
+        return task;
+    } catch (error) {
+        // Handle error
+        console.error("Error getting task by ID:", error);
+        throw error; // Rethrow the error for the caller to handle
+    }
+}
+
+// Function to update a task
+const updateTask = async (task_name, d_o_s, d_o_c, idtasks) => {
+    try {
+        const [task] = await pool.query(`
+            UPDATE tasks SET task_name = ?, d_o_s = ?, d_o_c = ?  WHERE idtasks = ?
+        `, [task_name, d_o_s, d_o_c, idtasks]);
+        return task;
+    } catch (error) {
+        // Handle error
+        console.error("Error updating task:", error);
+        throw error; // Rethrow the error for the caller to handle
+    }
+};
+
+// Function to delete a task
+const deleteTask = async (id) => {
+    try {
+        const [task] = await pool.query("DELETE FROM tasks WHERE idtasks = ?", [id]);
+        return task;
+    } catch (error) {
+        // Handle error
+        console.error("Error deleting task:", error);
+        throw error; // Rethrow the error for the caller to handle
+    }
+};
 
 
 
 
 
-    export{addusers,getuser,updateuser,deleteuser,checkuser,getusers,addTasks, getTask, updateTask, deleteTask, getTasks}
+    export{addusers,getuser,updateuser,deleteuser,checkuser,getusers,addTasks, getTask, updateTask, deleteTask, getTasks,getEditTask}
