@@ -1,136 +1,56 @@
 <template>
+  
   <div class="home">
-  
-    <section class="todo-outer">
-        <div class="todo-inner">
-          <h1><i class="fa fa-list-alt"></i> Todo List</h1>
-          <input type="text" class="form-control mb-2" placeholder="Enter your task" id="addtaskinput" />
-          <input type="hidden" id="saveindex">
-          <button type="button" class="btn" id="addtaskbtn">Add Task</button>
-          <button type="button" class="btn" id="savetaskbtn">Save Task</button>
-          <button type="button" id="deleteallbtn" class="btn">Delete All</button>
-          <button type="button" id="sort" class="btn">Sort</button>
-          <div class="to-do-output">
-            <table class="table" id="addedtasklist"></table>
-          </div>
-        </div>
-      </section>
+    <h1 class="heading">
+      <i class="fas fa-tasks"></i>
+      To Do List
+    </h1>
   </div>
-  
+
+  <div class="container">
+    <!-- Your content here -->
+  </div>
 </template>
 
 <script>
-// @ is an alias to /src
-
-
 export default {
 
 }
 </script>
 
 <style scoped>
-
-/* body{ background: var(--main-darkest);
-    color: white;} */
-
-section.todo-outer {
-    width: 100%;
-    float: left;
-    padding: 30px 0;
-}
-section.todo-outer h1 {
-    font-size: 40px;
-    margin-bottom: 20px;
-}
-.todo-inner {
-    width: 50%;
-    margin-left: 25%;
-    padding: 40px;
-    box-shadow: 0px 0px 10px hsl(0, 0%, 76%);
-    background: var(--main-dark)
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align items to the start (left) */
+  padding: 20px;
+  background-color: #f4e1d2; /* Cream */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 20px; /* Add margin to position the box from the top left */
+  position: absolute; /* Position the box absolutely */
+  top: 0; /* Align to top */
+  left: 0; /* Align to left */
 }
 
-.todo-outer {
-    width: 100%;
-    padding: 30px 0;
-    box-sizing: border-box;
-  }
-  
-  
-  .todo-inner h1 {
-    font-size: 40px;
-    margin-bottom: 20px;
-  }
-  
-  .form-control {
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  .btn {
-    margin-right: 10px;
-    flex-basis: calc(20% - 10px); /* Adjust the width as needed, considering margin */
-    /* margin-right: 10px; */
-  }
-  
-  .to-do-output {
-    margin-top: 20px;
-  }
-  
-  
-  
-#addtaskbtn{
-    background-image: linear-gradient(to right, var(--highlight-orange), var(--highlight-green));
-    -webkit-background-clip: text;
- -webkit-text-fill-color: transparent;  
- /* display: inline-block;    */
+.heading {
+  font-weight: 700;
+  line-height: 50px;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #333;
 }
-#deleteallbtn{
-    background-image: linear-gradient(to right, var(--highlight-orange), var(--highlight-green));
-    -webkit-background-clip: text;
- -webkit-text-fill-color: transparent;  
- /* display: inline-block;     */
+
+.container {
+  
+  padding: 20px;
+  border-radius: 8px;
+  margin: 80px auto; /* Adjust margin to provide space between container and home */
+  width: 100%;
+  max-width: 400px;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
 }
-table tr td button {
-    background-image: linear-gradient(to right, var(--highlight-orange), var(--highlight-green));
-    -webkit-background-clip: text;
- -webkit-text-fill-color: transparent;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-}
-.completed{text-decoration: line-through;}
-
-
-    input, button{
-        appearance: none;
-        border: none;
-        outline: none;
-        background: none;
-    flex-basis: calc(20% - 10px); /* Adjust the width as needed, considering margin */
-
-         
-    }
-
-    #savetaskbtn{
-        display: none;
-        background-image: linear-gradient(to right, var(--highlight-orange), var(--highlight-green));
-    -webkit-background-clip: text;
- -webkit-text-fill-color: transparent;  
- /* display: inline-block;   */
- 
-    }
-  #sort{
-    background-image: linear-gradient(to right, var(--highlight-orange), var(--highlight-green));
-    -webkit-background-clip: text;
- -webkit-text-fill-color: transparent; 
- /* display: inline-block;   */
-
-  }
 </style>
-
-
-
-
-
-
