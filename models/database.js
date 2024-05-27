@@ -37,6 +37,13 @@ const checkuser = async(email)=> {
     console.log(password);
         return password
     }
+
+    const getusername = async(email)=> {
+        const [result] = await pool.query(`
+        SELECT * FROM users WHERE email = ?
+        `,[email])
+        return result
+    }
     //end of user table
 
 // tasks
@@ -120,4 +127,4 @@ const deleteTask = async (id) => {
 
 
 
-    export{addusers,getuser,updateuser,deleteuser,checkuser,getusers,addTasks, getTask, updateTask, deleteTask, getTasks,getEditTask}
+    export{addusers,getuser,updateuser,deleteuser,checkuser,getusers,addTasks, getTask, updateTask, deleteTask, getTasks,getEditTask,getusername}
