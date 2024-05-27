@@ -6,7 +6,7 @@ import userRoute from './routes/user.js'
 import loginRoute from './routes/login.js'
 import taskRoute from './routes/tasks.js'
 import {auth} from './middleware/authentication.js'
-import cookieParser from 'cookie-parser'
+// import cookieParser from 'cookie-parser'
 
 config();
 
