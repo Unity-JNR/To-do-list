@@ -9,10 +9,11 @@
                  <div class="flip-card__inner">
                     <div class="flip-card__front">
                        <div class="title">Log in</div>
-                       <form class="flip-card__form" action="">
-                          <input class="flip-card__input" name="email" placeholder="Email" type="email">
-                          <input class="flip-card__input" name="password" placeholder="Password" type="password">
-                          <button class="flip-card__btn">Let`s go!</button>
+                       <form class="flip-card__form" action="" @submit.prevent>
+                          <input class="flip-card__input" name="email" placeholder="Email" type="email" v-model="email">
+                          <input class="flip-card__input" name="password" placeholder="Password" type="password" v-model="password">
+                                     {{$store.state.loginIn}}
+                          <button class="flip-card__btn" @click="login()">Let`s go!</button>
                        </form>
                     </div>
                     <div class="flip-card__back">
@@ -30,6 +31,34 @@
      </div>
   </div>
 </template>
+
+<script>
+
+
+export default {
+  components: {
+ 
+  },
+    data() {
+        return {
+            userName: "",
+            password:"",
+            email:"",
+            userRole: 'user'
+        }
+    },
+    methods: {
+        login(){
+            this.$store.dispatch('log_in',this.$data)
+        },
+        register(){
+            this.$store.dispatch('register',this.$data)
+        },
+      
+    }
+    
+}
+</script>
 
 
 <style scoped>
