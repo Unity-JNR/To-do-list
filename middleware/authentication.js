@@ -13,7 +13,7 @@ const authenticate = (req, res, next) => {
         return res.sendStatus(401)
     }
 
-    jwt.verify(tokenInHeader, process.env.SECRET_KEY, (err, user) => {
+    jwt.verify(tokenInHeader, process.env.SERCERT_KEY, (err, user) => {
         if (err) {
             return res.sendStatus(403)
         }
