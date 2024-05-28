@@ -33,7 +33,7 @@ const auth = async (req, res, next) => {
         }
         if (result === true) {
             const {email}=req.body
-            const token = jwt.sign({ email: email }, process.env.SECRET_KEY, { expiresIn: '1h' })
+            const token = jwt.sign({ email: email }, process.env.SERCERT_KEY, { expiresIn: '1h' })
             res.cookie('jwt', token,thisUser, { httpOnly: true, maxAge: 3600000 })
 
             res.send({
