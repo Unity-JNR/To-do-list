@@ -18,11 +18,11 @@
                     </div>
                     <div class="flip-card__back">
                        <div class="title">Sign up</div>
-                       <form class="flip-card__form" action="">
-                          <input class="flip-card__input" placeholder="Name" type="name">
-                          <input class="flip-card__input" name="email" placeholder="Email" type="email">
-                          <input class="flip-card__input" name="password" placeholder="Password" type="password">
-                          <button class="flip-card__btn">Confirm!</button>
+                       <form class="flip-card__form" action="" @submit.prevent  >
+                          <input class="flip-card__input" placeholder="Name" type="name" v-model="username">
+                          <input class="flip-card__input" name="email" placeholder="Email" type="email" v-model="email">
+                          <input class="flip-card__input" name="password" placeholder="Password" type="password" v-model="password">
+                          <button class="flip-card__btn" @click="register()">Confirm!</button>
                        </form>
                     </div>
                  </div>
@@ -41,10 +41,10 @@ export default {
   },
     data() {
         return {
-            userName: "",
+            username: "",
             password:"",
             email:"",
-            userRole: 'user'
+            role: 'user'
         }
     },
     methods: {
@@ -52,7 +52,7 @@ export default {
             this.$store.dispatch('log_in',this.$data)
         },
         register(){
-            this.$store.dispatch('register',this.$data)
+            this.$store.dispatch('signup',this.$data)
         },
       
     }
