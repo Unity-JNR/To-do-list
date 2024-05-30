@@ -8,7 +8,10 @@
   </div>
 
   <div class="containers">
-    <input type="text" name="text" placeholder="Enter your tasks" class="input">
+    <input type="text" name="text" placeholder="Enter your tasks" class="input" v-model="task_name">
+    <label for="d_o_s" class="date-label">dos:</label><input type="date" v-model="d_o_s"> 
+    <label for="d_o_s" class="date-label">doc:</label> <input type="date" v-model="d_o_c">
+    <input type="submit" value="add task" class="btn"  @click="addTask()">
     
   </div>
 
@@ -20,6 +23,31 @@
             <p>{{ task.task_name }}</p>
             <p>{{ task.d_o_s }}</p>
             <p>{{ task.d_o_c }}</p>
+            <button type="button" class="btns" data-bs-toggle="modal" :data-bs-target="'#exampleModal'+task.idtasks">
+                                           edit
+                                           </button>
+   
+                                           <!-- Modal -->
+                                           <div class="modal fade" :id="'exampleModal'+task.idtasks" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                           <div class="modal-dialog">
+                                               <div class="modal-content">
+                                               <div class="modal-header">
+                                                   <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                               </div>
+                                               <div class="modal-body">
+                                                <input type="text" name="text" placeholder="Enter your tasks" class="input" v-model="task_name">
+                                                 <label for="d_o_s" class="date-label">dos:</label><input type="date" v-model="d_o_s"> 
+                                                  <label for="d_o_s" class="date-label">doc:</label> <input type="date" v-model="d_o_c">
+                                               </div>
+                                               <div class="modal-footer">
+                                                   <button type="button" class="btn btn-secondary btns" data-bs-dismiss="modal">Close</button>
+                                                   <button type="button" class="btn btn-primary btns" @click="updateTask(task.idtasks)">Save changes</button>
+                                               </div>
+                                               </div>
+                                           </div>
+                                           </div>
+            <button class="btns" @click="deleteTask(task.idtasks)">delete</button>
           </div>
         </div>
       </div>
@@ -29,6 +57,16 @@
 
 <script>
 export default {
+  data(){
+    return {
+
+      d_o_s : "",
+      d_o_c : "",
+      task_name : ""
+
+    }
+
+  },
   computed: {
     tasks() {
       return this.$store.state.Task;
@@ -37,6 +75,28 @@ export default {
   methods: {
     fetchTasks() {
       this.$store.dispatch('getTask', this.$cookies.get('user_id'));
+    },
+  async  addTask() {
+      const userID = this.$cookies.get('user_id');
+      const task = {
+        task_name: this.task_name,
+        d_o_s: this.d_o_s,
+        d_o_c: this.d_o_c,
+        user_id: userID
+      };
+    await  this.$store.dispatch('addTask', task);
+    },
+    deleteTask(id){
+      this.$store.dispatch('deleteTask', id);
+    },
+    updateTask(idtasks){
+      let edit = {
+        id: idtasks,
+        task_name: this.task_name,
+        d_o_s: this.d_o_s,
+        d_o_c: this.d_o_c,
+    };
+    this.$store.dispatch('updateTask', edit)
     }
   },
   mounted() {
@@ -109,7 +169,7 @@ export default {
   display: flex;
   flex-direction: column;
    padding: 20px;
-  background-color: #1fd416; /* Cream */
+  background-color: #ffad8b  ; /* Cream */
   border-radius: 8px;
   /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
  width: 300px;
@@ -119,4 +179,70 @@ export default {
   margin: 0;
   padding: 5px 0;
 }
+input[type="submit"] {
+  display: block;
+  color: #fff;
+  background: linear-gradient(142.99deg, #ff7e5f 15.53%, #feb47b 88.19%);
+  box-shadow: 0px 12px 24px -1px rgba(0, 0, 0, 0.18);
+  border: none;
+  border-radius: 50px;
+  padding: 10px 20px;
+  margin: 10px auto;
+  cursor: pointer;
+  text-align: center;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  width: 150px;
+}
+
+.btns {
+  display: inline-block; 
+  color: #fff;
+  background: linear-gradient(142.99deg, #ff7e5f 15.53%, #feb47b 88.19%);
+  box-shadow: 0px 12px 24px -1px rgba(0, 0, 0, 0.18);
+  border: none;
+  border-radius: 50px;
+  padding: 10px 20px;
+  margin: 10px auto;
+  cursor: pointer;
+  text-align: center;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  /* width: 150px; */
+}
+.btns:hover {
+  background: linear-gradient(142.99deg, #feb47b 15.53%, #ff7e5f 88.19%);
+}
+
+.btns:focus {
+  outline: none;
+  box-shadow: 0px 0px 10px rgba(255, 126, 95, 0.7);
+}
+
+input[type="submit"].btn:hover {
+  background: linear-gradient(142.99deg, #feb47b 15.53%, #ff7e5f 88.19%);
+}
+
+input[type="submit"].btn:focus {
+  outline: none;
+  box-shadow: 0px 0px 10px rgba(255, 126, 95, 0.7);
+}
+
+.date-label {
+  display: block; /* Changed to block */
+  margin-bottom: 5px; /* Adjust spacing between labels */
+  font-size: 16px;
+  color: #333; /* Adjust color if needed */
+}
+
+input[type="date"] {
+  display: block; /* Changed to block */
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc; /* Adjust border color */
+  font-size: 16px;
+  margin-bottom: 10px; /* Adjust spacing between inputs */
+  width: calc(100% - 20px); /* Adjust width of input */
+}
+
 </style>

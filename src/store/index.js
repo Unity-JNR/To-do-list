@@ -53,7 +53,20 @@ export default createStore({
       let {data} = await axios.get(web + '/' + id)
       console.log(data);
       commit('setTask',data)
-    }
+    },
+    async addTask({commit},payload){
+      let {data} = await axios.post(`${web}?user=${payload.user_id}`,payload)
+      console.log(data);
+      },
+      async deleteTask({commit},id){
+        let {data} = await axios.delete(web + '/' + id)
+        console.log(data);
+      },
+      async updateTask({commit},update){
+        let {data} = await axios.patch(web+'/'+ update.id,update)
+        console.log(data);
+
+      }
   },
   modules: {
   }
