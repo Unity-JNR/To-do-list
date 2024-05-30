@@ -7,14 +7,20 @@ axios.defaults.withCredentials = true
 
 export default createStore({
   state: {
-    loginIn:false
+    loginIn:false,
+    Task: []
   },
   getters: {
   },
   mutations: {
     setLogged(state,value){
       state.loginIn = value
+    },
+    setTask(state,value){
+      state.Task = value
     }
+
+    
   },
   actions: {
     async log_in({commit},user){
@@ -26,8 +32,8 @@ export default createStore({
         $cookies.set('userRole',userRole)
         let [user] =data.user
         $cookies.set('user',user)
-        let [{UserID}] = data.user
-        $cookies.set('userID',UserID)
+        let [{user_id}] = data.user
+        $cookies.set('user_id',user_id)
         console.log($cookies);
         // await router.push('/')
       } else {
@@ -42,6 +48,11 @@ export default createStore({
       let {data} = await axios.post(users,user)
       console.log(data);
       alert(data.msg)
+    },
+    async getTask({commit},id){
+      let {data} = await axios.get(web + '/' + id)
+      console.log(data);
+      commit('setTask',data)
     }
   },
   modules: {

@@ -7,17 +7,44 @@
     </h1>
   </div>
 
-  <div class="container">
+  <div class="containers">
     <input type="text" name="text" placeholder="Enter your tasks" class="input">
     
+  </div>
+
+  <div class="container d-flex justify-content-center">
+    <div class="row">
+      <div class="col-lg-3 m-5" v-for="task in $store.state.Task" :key="task.user_id">
+        <div class="box">
+          <div class="task">
+            <p>{{ task.task_name }}</p>
+            <p>{{ task.d_o_s }}</p>
+            <p>{{ task.d_o_c }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-
+  computed: {
+    tasks() {
+      return this.$store.state.Task;
+    }
+  },
+  methods: {
+    fetchTasks() {
+      this.$store.dispatch('getTask', this.$cookies.get('user_id'));
+    }
+  },
+  mounted() {
+    this.fetchTasks();
+  }
 }
 </script>
+
 
 <style scoped>
 .home {
@@ -45,7 +72,7 @@ export default {
   color: #333;
 }
 
-.container {
+.containers {
   
   padding: 20px;
   border-radius: 8px;
@@ -76,5 +103,20 @@ export default {
 
 .input[type = "text"]:focus {
   width: 280px;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+   padding: 20px;
+  background-color: #1fd416; /* Cream */
+  border-radius: 8px;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+ width: 300px;
+
+}
+.task p {
+  margin: 0;
+  padding: 5px 0;
 }
 </style>
