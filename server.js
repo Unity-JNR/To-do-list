@@ -27,6 +27,15 @@ app.use('/users', userRoute);
 // app.use('/signup', signupRoute);
 app.use('/login',auth, loginRoute);
 app.use('/tasks', taskRoute);
+
+app.delete('/logout', (req, res) => {
+  // Clear the 'jwt' cookie
+  res.clearCookie('jwt');
+  
+  res.send({
+    msg: 'You have been logged out'
+  });
+});
 app.listen(PORT, () => {
   console.log(`Server running on port http://localhost:${PORT}`);
 });
