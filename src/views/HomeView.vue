@@ -19,7 +19,7 @@
     
   </div>
 
-  <div v-if="$store.state.Task.length > 0">
+  <div v-if=" isLoggedIn && $store.state.Task.length > 0">
     <div class="container d-flex justify-content-center">
       <div class="row">
         <div class="col-lg-3 m-5" v-for="task in $store.state.Task" :key="task.user_id">
@@ -61,7 +61,7 @@
   </div>
 
   <div v-else>
-    <p>No tasks available.</p>
+    <!-- <p>No tasks available.</p> -->
   </div>
 
 
@@ -83,11 +83,17 @@ export default {
   computed: {
     tasks() {
        this.$store.state.Task;
+    },
+    isLoggedIn() {
+      // Replace this with the actual check for user login status
+      return !!this.$cookies.get('user_id');
     }
   },
   methods: {
     fetchTasks() {
-      this.$store.dispatch('getTask', this.$cookies.get('user_id'));
+      if (this.isLoggedIn) {
+        this.$store.dispatch('getTask', this.$cookies.get('user_id'));
+      }
     },
   async  addTask() {
       const userID = this.$cookies.get('user_id');
@@ -116,7 +122,7 @@ export default {
     }
   },
   mounted() {
-    // this.fetchTasks();
+    this.fetchTasks();
   }
 }
 </script>
