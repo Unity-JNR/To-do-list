@@ -9,7 +9,8 @@ axios.defaults.withCredentials = true
 export default createStore({
   state: {
     loginIn:false,
-    Task: []
+    Task: [],
+    singleuser: []
   },
   getters: {
   },
@@ -19,6 +20,9 @@ export default createStore({
     },
     setTask(state,value){
       state.Task = value
+    },
+    setuser(state,value){
+      state.singleuser = value
     }
 
     
@@ -76,7 +80,20 @@ export default createStore({
         let {data} = await axios.patch(web+'/'+ update.id,update)
         console.log(data);
 
-      }
+      },
+      async getuser({commit},id){
+        let {data} = await axios.get(users + '/' + id)
+        console.log(data);
+        commit('setuser',data)
+             },
+             async deleteuser({commit},id){
+              let {data} = await axios.delete(users + '/' + id)
+              console.log(data);
+            },
+            async updateuser({commit},update){
+              let {data} = await axios.patch(users+'/'+ update.id,update)
+              console.log(data);
+            }
   },
   modules: {
   }
