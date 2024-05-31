@@ -7,6 +7,10 @@
     </h1>
   </div>
 
+  <button @click="logout()">
+    logout
+  </button>
+
   <div class="containers">
     <input type="text" name="text" placeholder="Enter your tasks" class="input" v-model="task_name">
     <label for="d_o_s" class="date-label">dos:</label><input type="date" v-model="d_o_s"> 
@@ -15,44 +19,53 @@
     
   </div>
 
-  <div class="container d-flex justify-content-center">
-    <div class="row">
-      <div class="col-lg-3 m-5" v-for="task in $store.state.Task" :key="task.user_id">
-        <div class="box">
-          <div class="task">
-            <p>{{ task.task_name }}</p>
-            <p>{{ task.d_o_s }}</p>
-            <p>{{ task.d_o_c }}</p>
-            <button type="button" class="btns" data-bs-toggle="modal" :data-bs-target="'#exampleModal'+task.idtasks">
-                                           edit
-                                           </button>
-   
-                                           <!-- Modal -->
-                                           <div class="modal fade" :id="'exampleModal'+task.idtasks" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                           <div class="modal-dialog">
-                                               <div class="modal-content">
-                                               <div class="modal-header">
-                                                   <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                                                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                               </div>
-                                               <div class="modal-body">
-                                                <input type="text" name="text" placeholder="Enter your tasks" class="input" v-model="task_name">
-                                                 <label for="d_o_s" class="date-label">dos:</label><input type="date" v-model="d_o_s"> 
-                                                  <label for="d_o_s" class="date-label">doc:</label> <input type="date" v-model="d_o_c">
-                                               </div>
-                                               <div class="modal-footer">
-                                                   <button type="button" class="btn btn-secondary btns" data-bs-dismiss="modal">Close</button>
-                                                   <button type="button" class="btn btn-primary btns" @click="updateTask(task.idtasks)">Save changes</button>
-                                               </div>
-                                               </div>
-                                           </div>
-                                           </div>
-            <button class="btns" @click="deleteTask(task.idtasks)">delete</button>
+  <div v-if="$store.state.Task.length > 0">
+    <div class="container d-flex justify-content-center">
+      <div class="row">
+        <div class="col-lg-3 m-5" v-for="task in $store.state.Task" :key="task.user_id">
+          <div class="box">
+            <div class="task">
+              <p>{{ task.task_name }}</p>
+              <p>{{ task.d_o_s }}</p>
+              <p>{{ task.d_o_c }}</p>
+              <button type="button" class="btns" data-bs-toggle="modal" :data-bs-target="'#exampleModal'+task.idtasks">
+                                             edit
+                                             </button>
+     
+                                             <!-- Modal -->
+                                             <div class="modal fade" :id="'exampleModal'+task.idtasks" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                             <div class="modal-dialog">
+                                                 <div class="modal-content">
+                                                 <div class="modal-header">
+                                                     <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                 </div>
+                                                 <div class="modal-body">
+                                                  <input type="text" name="text" placeholder="Enter your tasks" class="input" v-model="task_name">
+                                                   <label for="d_o_s" class="date-label">dos:</label><input type="date" v-model="d_o_s"> 
+                                                    <label for="d_o_s" class="date-label">doc:</label> <input type="date" v-model="d_o_c">
+                                                 </div>
+                                                 <div class="modal-footer">
+                                                     <button type="button" class="btn btn-secondary btns" data-bs-dismiss="modal">Close</button>
+                                                     <button type="button" class="btn btn-primary btns" @click="updateTask(task.idtasks)">Save changes</button>
+                                                 </div>
+                                                 </div>
+                                             </div>
+                                             </div>
+              <button class="btns" @click="deleteTask(task.idtasks)">delete</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <div v-else>
+    <p>No tasks available.</p>
+  </div>
+
+
+
 </template>
 
 <script>
@@ -69,7 +82,7 @@ export default {
   },
   computed: {
     tasks() {
-      return this.$store.state.Task;
+       this.$store.state.Task;
     }
   },
   methods: {
@@ -97,10 +110,13 @@ export default {
         d_o_c: this.d_o_c,
     };
     this.$store.dispatch('updateTask', edit)
+    },
+    logout(){
+      this.$store.dispatch('logout') 
     }
   },
   mounted() {
-    this.fetchTasks();
+    // this.fetchTasks();
   }
 }
 </script>
@@ -236,13 +252,25 @@ input[type="submit"].btn:focus {
 }
 
 input[type="date"] {
-  display: block; /* Changed to block */
-  padding: 8px;
-  border-radius: 5px;
-  border: 1px solid #ccc; /* Adjust border color */
-  font-size: 16px;
-  margin-bottom: 10px; /* Adjust spacing between inputs */
-  width: calc(100% - 20px); /* Adjust width of input */
-}
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            border-radius: 50px
+        }
+
+        input[type="date"]:focus {
+            border-color: #007BFF;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            outline: none;
+        }
+
+        /* input[type="date"]::-webkit-inner-spin-button,
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            display: none;
+            -webkit-appearance: none;
+        } */
 
 </style>

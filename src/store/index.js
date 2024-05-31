@@ -3,6 +3,7 @@ import axios from 'axios'
 const users = 'https://to-do-list-5sqk.onrender.com/users'
 const login ='https://to-do-list-5sqk.onrender.com/login'
 const web = 'https://to-do-list-5sqk.onrender.com/tasks'
+const log = 'https://to-do-list-5sqk.onrender.com/logout'
 axios.defaults.withCredentials = true
 
 export default createStore({
@@ -40,9 +41,18 @@ export default createStore({
         $cookies.remove('jwt')
         $cookies.remove('user')
         $cookies.remove('userRole')
-        $cookies.remove('userID')
+        $cookies.remove('user_id')
       }
       commit('setLogged')
+    },
+    async logout(){
+      let {data} = await axios.delete(log)
+      console.log(data);
+      $cookies.remove('jwt')
+      $cookies.remove('user')
+      $cookies.remove('userRole')
+      $cookies.remove('user_id')
+  
     },
     async signup({commit},user){
       let {data} = await axios.post(users,user)
