@@ -1,15 +1,17 @@
 <template>
-  <nav>
-    <!-- <router-link to="/">Home</router-link> | -->
-    <!-- <router-link to="/login">About</router-link> | -->
-    <router-link to="/user" v-if="$cookies.get('jwt')">user</router-link> 
-    <button @click="logout()" v-if="$cookies.get('jwt')" class="buttons">
-    logout
-  </button>
-  <button class="buttons">
-    <router-link to="/login">Login</router-link>
-  </button>
-  </nav>
+  <div class="sticky-top">
+    <nav>
+      <!-- <router-link to="/">Home</router-link> | -->
+      <!-- <router-link to="/login">About</router-link> | -->
+      <router-link to="/user" v-if="$cookies.get('jwt')">user</router-link> 
+      <button @click="logout()" v-if="$cookies.get('jwt')" class="buttons">
+      logout
+    </button>
+    <button class="buttons"  v-if="!$cookies.get('jwt')" >
+      <router-link to="/login">Login</router-link>
+    </button>
+    </nav>
+  </div>
   <router-view/>
 </template>
 
