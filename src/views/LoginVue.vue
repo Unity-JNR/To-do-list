@@ -33,7 +33,8 @@
 </template>
 
 <script>
-
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 
 export default {
   components: {
@@ -50,11 +51,13 @@ export default {
     methods: {
         async login(){
           await this.$store.dispatch('log_in', this.$data);
-    await this.$router.push('/');
-    location.reload();
+          toast.success("Successfully logged in", { theme: "dark", timeout: 5000 }); // 5000 milliseconds (5 seconds)
+          await this.$router.push('/');
+          location.reload();
         },
         register(){
             this.$store.dispatch('signup',this.$data)
+            toast.success("successfully Created", { theme: "dark", timeout: 5000 }); // 5000 milliseconds (5 seconds)
         },
       
     }

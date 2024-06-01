@@ -11,8 +11,8 @@
 
   <div class="containers">
     <input type="text" name="text" placeholder="Enter your tasks" class="input" v-model="task_name">
-    <label for="d_o_s" class="date-label">dos:</label><input type="date" v-model="d_o_s"> 
-    <label for="d_o_s" class="date-label">doc:</label> <input type="date" v-model="d_o_c">
+    <label for="d_o_s" class="date-label">date of start:</label><input type="date" v-model="d_o_s"> 
+    <label for="d_o_s" class="date-label">date of completion:</label> <input type="date" v-model="d_o_c">
     <input type="submit" value="add task" class="btn"  @click="addTask()">
     
   </div>
@@ -35,7 +35,7 @@
                                              <div class="modal-dialog">
                                                  <div class="modal-content">
                                                  <div class="modal-header">
-                                                     <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                                     <h1 class="modal-title fs-5" id="exampleModalLabel">Edit</h1>
                                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                  </div>
                                                  <div class="modal-body">
@@ -268,11 +268,9 @@ input[type="date"] {
             box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
             outline: none;
         }
+.modal-content {
+  background-color: #f4e1d2; /* Cream */ 
+}
 
-        /* input[type="date"]::-webkit-inner-spin-button,
-        input[type="date"]::-webkit-calendar-picker-indicator {
-            display: none;
-            -webkit-appearance: none;
-        } */
 
 </style>

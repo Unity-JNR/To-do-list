@@ -1,4 +1,7 @@
 <template>
+  <button class="btn" v-if="isHomePage">
+   <router-link to="/"><i class="fa fa-arrow-circle-left"></i></router-link> 
+  </button>
     <div class="container d-flex justify-content-center">
         <div class="card" v-for="item in $store.state.singleuser" :key="item">
 
@@ -50,6 +53,19 @@
 </template>
 <script>
 export default {
+  data() {
+    return {
+      isHomePage: false
+    };
+  },
+  created() {
+    // Check the current route when the component is created
+    this.checkCurrentRoute();
+    // Listen for route changes and update the visibility of the button
+    this.$router.afterEach(() => {
+      this.checkCurrentRoute();
+    });
+  },
     computed : {
       getuser(id){
         const userID = this.$cookies.get('user_id');
@@ -59,7 +75,12 @@ export default {
     methods : {
       deleteuser(id) {
         this.$store.dispatch("deleteuser",id)
-      }
+      },
+      checkCurrentRoute() {
+      // Check if the current route is the home page
+      this.isHomePage = this.$route.path === '/';
+    }
+  
     },
     mounted(){
       this.getuser
@@ -211,7 +232,7 @@ export default {
 }
 
 .card .bottom .bottom-bottom .button:hover {
-  background: #f55d56;
+  background: #fbb9b6;
   color: white;
 }
 
@@ -254,5 +275,7 @@ export default {
   transform: scale(2.5);
   transition: all 0.5s ease-in-out 0.5s;
 }
+
+
  
 </style>
