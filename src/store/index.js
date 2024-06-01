@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import axios from 'axios'
+import router from '@/router'
 const users = 'https://to-do-list-5sqk.onrender.com/users'
 const login ='https://to-do-list-5sqk.onrender.com/login'
 const web = 'https://to-do-list-5sqk.onrender.com/tasks'

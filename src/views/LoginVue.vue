@@ -48,8 +48,10 @@ export default {
         }
     },
     methods: {
-        login(){
-            this.$store.dispatch('log_in',this.$data)
+        async login(){
+          await this.$store.dispatch('log_in', this.$data);
+    await this.$router.push('/');
+    location.reload();
         },
         register(){
             this.$store.dispatch('signup',this.$data)
