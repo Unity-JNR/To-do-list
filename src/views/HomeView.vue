@@ -7,9 +7,7 @@
     </h1>
   </div>
 
-  <button @click="logout()">
-    logout
-  </button>
+  
 
   <div class="containers">
     <input type="text" name="text" placeholder="Enter your tasks" class="input" v-model="task_name">
@@ -116,10 +114,8 @@ export default {
         d_o_c: this.d_o_c,
     };
     this.$store.dispatch('updateTask', edit)
-    },
-    logout(){
-      this.$store.dispatch('logout') 
     }
+  
   },
   mounted() {
     this.fetchTasks();
