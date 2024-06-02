@@ -36,7 +36,11 @@ export default {
   methods: {
    async logout(){
       await this.$store.dispatch('logout') 
-      toast.success("Successfully logged out", { theme: "dark",timeout:3000 });
+      toast.success("Successfully logged out", { theme: "dark",timeout:5000 });
+      
+  await new Promise(resolve => setTimeout(resolve, 3000));
+  this.$route.push("/")
+
       location.reload()
     },
     checkCurrentRoute() {

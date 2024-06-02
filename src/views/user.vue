@@ -22,40 +22,46 @@
                                             </button>
     
                                             <!-- Modal -->
-                                            <div class="modal fade" :id="'exampleModal'+item.user_id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <input id="input" type="text" placeholder="name" v-model="userName">
-                                                    <input id="input" type="text" placeholder="mail" v-model="userMail">
-                                                    <input id="input" type="text" placeholder="userRole" v-model="userRole">
-                                                    <input id="input" type="text" placeholder="userPass" v-model="userPass">
-                                                    
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-primary" >Save changes</button>
-                                                </div>
-                                                </div>
-                                            </div>
-                                            </div>
                                             
                                           </div>
                                         </div>
-                                 
+                                        
+                                        <div class="modal fade" :id="'exampleModal'+item.user_id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <input id="input" type="text" placeholder="name" v-model="username">
+                                                <input id="input" type="text" placeholder="mail" v-model="email">
+                                                <input id="input" type="text" placeholder="userRole" v-model="role">
+                                                <input id="input" type="text" placeholder="userPass" v-model="password">
+                                                
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary" @click="updateuser(item.user_id)" >Save changes</button>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
     </div>
   </div>
 
 </template>
 <script>
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 export default {
   data() {
     return {
-      isHomePage: false
+      isHomePage: false,
+      username: "",
+            password:"",
+            email:"",
+            role: 'user'
     };
   },
   created() {
@@ -79,6 +85,20 @@ export default {
       checkCurrentRoute() {
       // Check if the current route is the home page
       this.isHomePage = this.$route.path === '/';
+    },
+    async updateuser(user_id){
+      let edit = {
+        id: user_id,
+        username: this.username,
+        email: this.email,
+        password:  this.password,
+        role: this.role,
+  
+    };
+    this.$store.dispatch('updateuser', edit)
+    toast.success("Successfully updated task", { theme: "dark", timeout: 1000 })
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    location.reload()
     }
   
     },

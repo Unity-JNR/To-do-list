@@ -49,12 +49,17 @@ export default {
         }
     },
     methods: {
-        async login(){
-          await this.$store.dispatch('log_in', this.$data);
-          toast.success("Successfully logged in", { theme: "dark", timeout: 5000 }); // 5000 milliseconds (5 seconds)
-          await this.$router.push('/');
-          location.reload();
-        },
+      async login() {
+  await this.$store.dispatch('log_in', this.$data);
+  toast.success("Successfully logged in", { theme: "dark", timeout: 1000 }); // 5000 milliseconds (5 seconds)
+
+  // Wait for 5000 milliseconds (5 seconds)
+  await new Promise(resolve => setTimeout(resolve, 1000));
+  
+  await this.$router.push('/');
+  location.reload();
+}
+,
         register(){
             this.$store.dispatch('signup',this.$data)
             toast.success("successfully Created", { theme: "dark", timeout: 5000 }); // 5000 milliseconds (5 seconds)

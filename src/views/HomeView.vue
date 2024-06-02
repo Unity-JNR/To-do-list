@@ -67,6 +67,8 @@
 </template>
 
 <script>
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 export default {
   data(){
     return {
@@ -102,11 +104,18 @@ export default {
         user_id: userID
       };
     await  this.$store.dispatch('addTask', task);
+    toast.success("Successfully added task", { theme: "dark", timeout: 1000 })
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    location.reload()
+
     },
-    deleteTask(id){
+    async deleteTask(id){
       this.$store.dispatch('deleteTask', id);
+      toast.success("Successfully deleted task", { theme: "dark", timeout: 1000 })
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      location.reload()
     },
-    updateTask(idtasks){
+    async updateTask(idtasks){
       let edit = {
         id: idtasks,
         task_name: this.task_name,
@@ -114,6 +123,9 @@ export default {
         d_o_c: this.d_o_c,
     };
     this.$store.dispatch('updateTask', edit)
+    toast.success("Successfully updated task", { theme: "dark", timeout: 1000 })
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    location.reload()
     }
   
   },
@@ -189,7 +201,7 @@ export default {
    padding: 20px;
   background-color: #ffad8b  ; /* Cream */
   border-radius: 8px;
-  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18); /* Button shadow */
  width: 300px;
 
 }

@@ -62,7 +62,7 @@ export default createStore({
     async signup({commit},user){
       let {data} = await axios.post(users,user)
       console.log(data);
-      alert(data.msg)
+      // alert(data.msg)
     },
     async getTask({commit},id){
       let {data} = await axios.get(web + '/' + id)
