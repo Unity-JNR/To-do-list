@@ -39,7 +39,7 @@ export default {
       toast.success("Successfully logged out", { theme: "dark",timeout:5000 });
       
   await new Promise(resolve => setTimeout(resolve, 3000));
-  this.$route.push("/")
+  this.$router.push("/")
 
       location.reload()
     },

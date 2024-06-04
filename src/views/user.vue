@@ -79,8 +79,13 @@ export default {
       }
     },
     methods : {
-      deleteuser(id) {
+     async deleteuser(id) {
         this.$store.dispatch("deleteuser",id)
+        toast.success("Successfully deleted task", { theme: "dark", timeout: 1000 })
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        this.$router.push('/')
+        location.reload()
+
       },
       checkCurrentRoute() {
       // Check if the current route is the home page
