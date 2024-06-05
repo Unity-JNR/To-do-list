@@ -6,6 +6,7 @@ import userRoute from './routes/user.js'
 import loginRoute from './routes/login.js'
 import taskRoute from './routes/tasks.js'
 import {auth} from './middleware/authentication.js'
+import { errorHandling } from './middleware/errorHandling.js';
 // import cookieParser from 'cookie-parser'
 
 config();
@@ -36,6 +37,8 @@ app.delete('/logout', (req, res) => {
     msg: 'You have been logged out'
   });
 });
+
+app.use(errorHandling)
 app.listen(PORT, () => {
   console.log(`Server running on port http://localhost:${PORT}`);
 });
