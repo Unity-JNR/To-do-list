@@ -15,7 +15,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 app.use(cors(
   { 
-    origin :"https://to-do-list-43198.web.app",
+    origin :"http://localhost:8080",
     credentials: true
   }
 ))
