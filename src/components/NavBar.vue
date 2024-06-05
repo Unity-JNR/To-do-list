@@ -1,12 +1,21 @@
 <template>
      <div>
+  
     <nav>
-      <button class="btn" v-if="isUserPage">
-   <router-link to="/"><i class="fa fa-arrow-circle-left"></i></router-link> 
-  </button>
-      <router-link v-if="$cookies.get('jwt')" to="/user"><i class="fa fa-portrait"></i></router-link>
+    <div class="top-left-button" v-if="isUserPage">
+  <router-link to="/">
+    <button class="btn">
+      <i class="fa fa-arrow-circle-left"></i>
+    </button>
+  </router-link>
+</div>
+
+  <div style="position: absolute; top: 18px; left: 30px;">
+    <router-link v-if="$cookies.get('jwt')" to="/user"><i class="fa fa-portrait fa-2x" style="color: #ff7e5f;"></i></router-link>
+</div>
+
          <button @click="logout()" v-if="$cookies.get('jwt')" class="buttons">
-      logout
+      Logout
     </button>
     <button class="buttons"  v-if="!$cookies.get('jwt')" >
       <router-link to="/login">Login</router-link>
@@ -94,10 +103,10 @@ nav a {
   text-align: center;
   font-size: 16px;
   transition: all 0.3s ease;
-  width: 100px;
+  /* width: 100px;   */
   position: absolute;
-  right: 30px;
-  top: 30px;
+  right: 15px;
+  top: 0px;
 }
 
 .buttons:hover {
@@ -108,4 +117,18 @@ nav a {
   outline: none;
   box-shadow: 0px 0px 10px rgba(255, 126, 95, 0.7);
 }
+
+.heading {
+  font-weight: 700;
+  line-height: 70px;
+  font-size: 24px;
+ 
+  color: #000;
+}
+.top-left-button {
+  position: absolute;
+  top: 10px;
+  left: 50px;
+}
+
 </style>

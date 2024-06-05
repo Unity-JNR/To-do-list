@@ -1,33 +1,37 @@
 <template>
   
-  <div class="home">
+  <!-- <div class="home">
     <h1 class="heading">
       <i class="fas fa-tasks"></i>
       To Do List
     </h1>
-  </div>
+  </div> -->
 
   
 
   <div class="containers">
+    <h1 class="heading">
+       <i class="fas fa-tasks"></i>
+       To do list
+     </h1>
     <input type="text" name="text" placeholder="Enter your tasks" class="input" v-model="task_name">
-    <label for="d_o_s" class="date-label">date of start:</label><input type="date" v-model="d_o_s"> 
-    <label for="d_o_s" class="date-label">date of completion:</label> <input type="date" v-model="d_o_c">
-    <input type="submit" value="add task" class="btn"  @click="addTask()">
+    <label for="d_o_s" class="date-label">Starting date:</label><input type="date" v-model="d_o_s"> 
+    <label for="d_o_s" class="date-label">Date of completion:</label> <input type="date" v-model="d_o_c">
+    <input type="submit" value="Add task" class="btn"  @click="addTask()">
     
   </div>
 
   <div v-if=" isLoggedIn && $store.state.Task.length > 0">
-    <div class="container d-flex justify-content-center">
-      <div class="row">
-        <div class="col-lg-3 m-5" v-for="task in $store.state.Task" :key="task.user_id">
-          <div class="box">
+    <div class="container">
+      <div class="row d-flex justify-content-center">
+        <div class="col-lg-3 p-2" v-for="task in $store.state.Task" :key="task.user_id">
+          <div class="box m-auto">
             <div class="task">
               <p>{{ task.task_name }}</p>
               <p>{{ task.d_o_s }}</p>
               <p>{{ task.d_o_c }}</p>
               <button type="button" class="btns" data-bs-toggle="modal" :data-bs-target="'#exampleModal'+task.idtasks">
-                                             edit
+                                             Edit
                                              </button>
      
                                              <!-- Modal -->
@@ -50,7 +54,7 @@
                                                  </div>
                                              </div>
                                              </div>
-              <button class="btns" @click="deleteTask(task.idtasks)">delete</button>
+              <button class="btns" @click="deleteTask(task.idtasks)">Delete</button>
             </div>
           </div>
         </div>
@@ -143,36 +147,13 @@ export default {
 
 
 <style scoped>
-.home {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* Align items to the start (left) */
-  padding: 20px;
-  background-color: #f4e1d2; /* Cream */
-  border-radius: 8px;
-  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
-  max-width: 400px;
-  margin: 20px; /* Add margin to position the box from the top left */
-  position: absolute; /* Position the box absolutely */
-  top: 0; /* Align to top */
-  left: 0; /* Align to left */
-}
 
-.heading {
-  font-weight: 700;
-  line-height: 50px;
-  font-size: 24px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: #333;
-}
 
 .containers {
   
-  padding: 20px;
-  border-radius: 8px;
-  margin: 80px auto; /* Adjust margin to provide space between container and home */
+  /* padding: 20px;   */
+  border-radius: 50px;
+  margin: 20px auto; /* Adjust margin to provide space between container and home */
   width: 100%;
   max-width: 400px;
   /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
@@ -239,7 +220,7 @@ input[type="submit"] {
   border: none;
   border-radius: 50px;
   padding: 10px 20px;
-  margin: 10px auto;
+  margin-left: 20px;
   cursor: pointer;
   text-align: center;
   font-size: 16px;
