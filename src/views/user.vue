@@ -79,14 +79,31 @@ export default {
       }
     },
     methods : {
-     async deleteuser(id) {
-        this.$store.dispatch("deleteuser",id)
-        toast.success("Successfully deleted task", { theme: "dark", timeout: 1000 })
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        this.$router.push('/')
-        location.reload()
+      async deleteuser(id) {
+  try {
+    // Wait for the deleteuser action to complete
+    await this.$store.dispatch("deleteuser", id);
+    // Wait for the logout action to complete
+    await this.$store.dispatch("logout");
+    
+    // Show a success toast message
+    toast.success("Successfully deleted user", { theme: "dark", timeout: 1000 });
 
-      },
+    // Wait for the toast message to be visible for 1 second
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    // Navigate to the home page
+    await this.$router.push('/');
+
+    // Reload the page
+    location.reload();
+  } catch (error) {
+    // Handle errors if any of the actions fail
+    console.error("Error deleting user:", error);
+    toast.error("Failed to delete task", { theme: "dark", timeout: 3000 });
+  }
+}
+,
       checkCurrentRoute() {
       // Check if the current route is the home page
       this.isHomePage = this.$route.path === '/';
@@ -248,7 +265,7 @@ export default {
 
 .card .bottom .bottom-bottom .button {
   background: white;
-  color: #fbb9b6;
+  color: #ff7e5f;
   border: none;
   border-radius: 20px;
   font-size: 0.6rem;
@@ -257,7 +274,7 @@ export default {
 }
 
 .card .bottom .bottom-bottom .button:hover {
-  background: #fbb9b6;
+  background: #ff7e5f;
   color: white;
 }
 

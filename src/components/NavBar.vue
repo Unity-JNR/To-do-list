@@ -34,15 +34,22 @@ export default {
     });
   },
   methods: {
-   async logout(){
-      await this.$store.dispatch('logout') 
-      toast.success("Successfully logged out", { theme: "dark",timeout:5000 });
-      
-  await new Promise(resolve => setTimeout(resolve, 3000));
-  this.$router.push("/")
+    async logout() {
+  await this.$store.dispatch('logout');
+  toast.success("Successfully logged out", { theme: "dark", timeout: 5000 });
 
-      location.reload()
-    },
+  // Wait for 3 seconds before routing
+  await new Promise(resolve => setTimeout(resolve, 3000));
+
+  // Change route
+  this.$router.push("/").then(() => {
+    // Wait until the next tick after route change
+    this.$nextTick(() => {
+      location.reload();
+    });
+  });
+}
+,
     checkCurrentRoute() {
       // Check if the current route is the home page
       this.isUserPage = this.$route.path === '/user';

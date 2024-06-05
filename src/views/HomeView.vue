@@ -96,6 +96,12 @@ export default {
       }
     },
   async  addTask() {
+    if (!this.$cookies.get('jwt')) {
+        // Optionally show a message to the user
+        toast.error("please login", { theme: "dark", timeout: 1000 })
+        return;
+      }
+
       const userID = this.$cookies.get('user_id');
       const task = {
         task_name: this.task_name,
