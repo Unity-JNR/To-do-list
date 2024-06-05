@@ -50,14 +50,30 @@ export default {
     },
     methods: {
       async login() {
-  await this.$store.dispatch('log_in', this.$data);
-  toast.success("Successfully logged in", { theme: "dark", timeout: 1000 }); // 5000 milliseconds (5 seconds)
-
-  // Wait for 5000 milliseconds (5 seconds)
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  
-  await this.$router.push('/');
-  location.reload();
+        
+   try {
+    // Attempt to log in
+    await this.$store.dispatch('log_in', this.$data);
+    
+    // If login is successful, show success toast message
+    toast.success("Successfully logged in", { theme: "dark", timeout: 1000 });
+    
+    // Wait for 1000 milliseconds (1 second)
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    // Navigate to the home page
+    await this.$router.push('/');    
+    
+    // Reload the page
+    location.reload();
+  } catch (error) {
+    // If login fails, show error toast message
+    toast.error("Email or password is incorrect", { theme: "dark", timeout: 3000 });
+    console.error("Login error:", error);
+    setTimeout(() => {
+      location.reload();
+    }, 1500);
+  }
 }
 ,
         register(){

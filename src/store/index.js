@@ -29,27 +29,34 @@ export default createStore({
     
   },
   actions: {
-    async log_in({commit},user){
-      let {data} = await axios.post(login,user)
-      console.log(data);
-      if (data.token !== undefined) {
-        $cookies.set('jwt',data.token)
-        let [{userRole}]=data.user
-        $cookies.set('userRole',userRole)
-        let [user] =data.user
-        $cookies.set('user',user)
-        let [{user_id}] = data.user
-        $cookies.set('user_id',user_id)
-        console.log($cookies);
-        // await router.push('/')
-      } else {
-        $cookies.remove('jwt')
-        $cookies.remove('user')
-        $cookies.remove('userRole')
-        $cookies.remove('user_id')
+    async log_in({ commit }, user) {
+      try {
+        let { data } = await axios.post(login, user);
+        console.log(data);
+    
+        if (data.token !== undefined) {
+          $cookies.set('jwt', data.token);
+          let [{ userRole }] = data.user;
+          $cookies.set('userRole', userRole);
+          let [user] = data.user;
+          $cookies.set('user', user);
+          let [{ user_id }] = data.user;
+          $cookies.set('user_id', user_id);
+          console.log($cookies);
+          commit('setLogged');
+        } else {
+          throw new Error("Email or password is incorrect");
+        }
+      } catch (error) {
+        $cookies.remove('jwt');
+        $cookies.remove('user');
+        $cookies.remove('userRole');
+        $cookies.remove('user_id');
+        commit('setLogged');
+        throw error; // Re-throw the error to be caught in the component method
       }
-      commit('setLogged')
-    },
+    }
+    ,
     async logout(){
       let {data} = await axios.delete(log)
       console.log(data);
