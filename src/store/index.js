@@ -1,10 +1,10 @@
 import { createStore } from 'vuex'
 import axios from 'axios'
 import router from '@/router'
-const users = 'https://to-do-list-5sqk.onrender.com/users'
-const login ='https://to-do-list-5sqk.onrender.com/login'
-const web = 'https://to-do-list-5sqk.onrender.com/tasks'
-const log = 'https://to-do-list-5sqk.onrender.com/logout'
+const users = 'https://to-do-list-532bjikfq-unity-jnr-a12c5e00.vercel.app/users'
+const login ='https://to-do-list-532bjikfq-unity-jnr-a12c5e00.vercel.app/login'
+const web = 'https://to-do-list-532bjikfq-unity-jnr-a12c5e00.vercel.app/tasks'
+const log = 'https://to-do-list-532bjikfq-unity-jnr-a12c5e00.vercel.app/logout'
 axios.defaults.withCredentials = true
 
 export default createStore({
